@@ -48,7 +48,7 @@ function Modal() {
         >
           <button
             type="button"
-            className="bg-[url(./src/images/window_close.svg)] bg-contain bg-no-repeat w-4 h-4 self-end"
+            className="bg-[url(/window_close.svg)] bg-contain bg-no-repeat w-4 h-4 self-end"
             onClick={() => {
               dispatch(setModalIsOpen());
             }}

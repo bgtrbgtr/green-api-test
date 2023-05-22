@@ -1,10 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EmojiPicker from "emoji-picker-react";
-import { getChatHistory, sendMessage } from "../utils/MainApi";
+import { sendMessage } from "../utils/MainApi";
 import { refreshChatHistory } from "../store/contactsSlice";
+import smileButtonImgUrl from "../images/smile.svg";
+import sendButtonImgUrl from "../images/send.png";
 
-function Footer({ setMessages }) {
+function Footer() {
   const dispatch = useDispatch();
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -14,11 +16,22 @@ function Footer({ setMessages }) {
     (contact) => contact.activeChat === true
   );
 
+  useEffect(() => {
+    const emojiPreview = document.querySelector(".Flex.epr-preview.FlexRow");
+    emojiPreview.setAttribute("style", "display: none");
+  }, []);
+
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      handleSubmit(e);
+    }
+  };
+
   const handleKeyboardOpen = () => {
     setIsKeyboardOpen((state) => !state);
   };
 
-  const handleEmojiClick = (emojiData, event) => {
+  const handleEmojiClick = (emojiData) => {
     setNewMessage(newMessage + emojiData.emoji);
   };
 
@@ -34,7 +47,6 @@ function Footer({ setMessages }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let newChatHistory = [];
 
     sendMessage(
       currentUser.idInstance,
@@ -74,7 +86,7 @@ function Footer({ setMessages }) {
         <EmojiPicker
           onEmojiClick={handleEmojiClick}
           emojiStyle="native"
-          height={280}
+          height={380}
           width="100%"
         />
       </div>
@@ -85,12 +97,13 @@ function Footer({ setMessages }) {
             type="button"
             onClick={handleKeyboardOpen}
           >
-            <img className="w-6 h-6 mx-auto" src="./src/images/smile.svg" />
+            <img className="w-6 h-6 mx-auto" src={smileButtonImgUrl} />
           </button>
           <form className="flex justify-between items-center w-full">
             <textarea
               value={newMessage}
               onChange={handleNewMessageChange}
+              onKeyDown={handleKeyDown}
               className="mx-2 my-1 h-10 min-h-0 leading-5 align-middle flex-grow resize-none px-3 py-2 rounded-lg w-8/12 text-sm whitespace-pre-wrap break-words overflow-x-clip overflow-y-auto outline-none"
             ></textarea>
             <button
@@ -98,7 +111,7 @@ function Footer({ setMessages }) {
               type="submit"
               onClick={handleSubmit}
             >
-              <img className="w-6 h-6 mx-auto" src="./src/images/send.png" />
+              <img className="w-6 h-6 mx-auto" src={sendButtonImgUrl} />
             </button>
           </form>
         </footer>

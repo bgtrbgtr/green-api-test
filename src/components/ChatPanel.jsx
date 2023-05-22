@@ -81,20 +81,25 @@ function ChatPanel() {
     <>
       <div className="flex flex-col min-h-full relative overflow-auto">
         <div className="flex flex-col relative top-16 max-h-full px-10 overflow-y-auto">
-          {!!messages?.length
-            ? messages.map((message) => {
-                if (
-                  message.typeMessage === "textMessage" ||
-                  message.typeMessage === "extendedTextMessage"
-                ) {
-                  return <Message key={message.idMessage} message={message} />;
-                }
-              })
-            : null}
+          {
+            // eslint-disable-next-line no-extra-boolean-cast
+            !!messages?.length
+              ? messages.map((message) => {
+                  if (
+                    message.typeMessage === "textMessage" ||
+                    message.typeMessage === "extendedTextMessage"
+                  ) {
+                    return (
+                      <Message key={message.idMessage} message={message} />
+                    );
+                  }
+                })
+              : null
+          }
           <div className="h-1 mb-16" ref={messagesListEnd}></div>
         </div>
       </div>
-      <Footer setMessages={setMessages} />
+      <Footer />
     </>
   );
 }

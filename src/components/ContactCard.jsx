@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { changeActiveStatus } from "../store/contactsSlice";
+import defaultAvatarUrl from "../images/default_avatar.svg";
 
 function ContactCard({ contact }) {
   let [lastMessageOfContact, setLastMessageOfContact] = useState({});
@@ -42,11 +43,7 @@ function ContactCard({ contact }) {
       <img
         className="w-12 h-12 mr-3 rounded-full object-contain"
         alt="avatar"
-        src={
-          contact.avatar.length > 0
-            ? contact.avatar
-            : "./src/images/default_avatar.svg"
-        }
+        src={contact.avatar.length > 0 ? contact.avatar : defaultAvatarUrl}
       ></img>
       <div className="w-10/12">
         <div className="flex justify-between items-center w-11/12">

@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setModalIsOpen } from "../store/modalSlice";
+import buttonImgUrl from "../images/new_chat.png";
+import defaultAvatarUrl from "../images/default_avatar.svg";
 
 function Header() {
   const currentUser = useSelector((state) => state.currentUser);
@@ -32,7 +34,7 @@ function Header() {
               type="button"
               onClick={handleNewChatButton}
             >
-              <img src="./src/images/new_chat.png" />
+              <img src={buttonImgUrl} />
             </button>
           </>
         ) : null}
@@ -44,7 +46,7 @@ function Header() {
             src={
               activeChat.avatar.length > 0
                 ? activeChat.avatar
-                : "./src/images/default_avatar.svg"
+                : defaultAvatarUrl
             }
           />
           <h4 className="align-middle">{activeChat.name}</h4>

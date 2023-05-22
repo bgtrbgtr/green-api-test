@@ -1,18 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuth, setCurrentUser } from "../store/currentUserSlice";
-import {
-  authorize,
-  getLastIncomingMessages,
-  getLastOutgoingMessages,
-} from "../utils/MainApi";
+import { authorize } from "../utils/MainApi";
 
 function Auth() {
   const currentUser = useSelector((state) => state.currentUser);
   const [id, setId] = useState(currentUser.idInstance);
   const [token, setToken] = useState(currentUser.apiTokenInstance);
   const dispatch = useDispatch();
-  const messages = [];
 
   const handleAuthorization = () => {
     authorize(id, token)
@@ -44,6 +39,7 @@ function Auth() {
       ></input>
       <label className="text-sm">Укажите API-токен:</label>
       <input
+        type="password"
         className="w-full mb-5 rounded-md outline-none p-1"
         value={token}
         onChange={handleTokenChange}
