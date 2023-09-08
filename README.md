@@ -8,4 +8,5 @@
 4. Запустить проект с помощью команды `npm run dev`.
 
 **Ссылка на gh-pages: https://bgtrbgtr.github.io/green-api-test/**
+
 Для использования сервиса необходима регистрация и авторизация: https://console.green-api.com/
